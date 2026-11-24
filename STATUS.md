@@ -27,10 +27,10 @@ Target awards: Best Ministry Impact, Best UI Design, Best in Track Care and Comm
 
 ## Build checklist
 - [x] Rules verified from official site and terms page
-- [ ] Registration (browser task running)
-- [ ] App built in app/
-- [ ] Local QA with screenshots
-- [ ] Public GitHub repo
-- [ ] GitHub Pages live demo
-- [ ] Demo video script and, if feasible, recorded video under 5 minutes
+- [ ] Registration (browser task running, result pending)
+- [x] App built in app/ and root index.html
+- [x] Local QA with screenshots (qa/, all assertions passed, zero JS errors)
+- [x] Public GitHub repo: https://github.com/dunoil/emmaus-care
+- [x] GitHub Pages live demo: https://dunoil.github.io/emmaus-care/ (verified HTTP 200, correct title)
+- [x] Demo video recorded: video/emmaus-care-demo.mp4, 95.8s, narration 171.8 wpm natural pace, 48 real pauses, loudness normalized to about -17 LUFS, frames QA checked
 - [ ] Submission pack ready, final submit held for Duan approval

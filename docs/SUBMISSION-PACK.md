@@ -27,7 +27,7 @@ Named for the road to Emmaus (Luke 24), where a companion listened first and spo
 ## Links
 Live demo: https://dunoil.github.io/emmaus-care/
 Repository: https://github.com/dunoil/emmaus-care
-Demo video: TO ADD (script in docs/DEMO-VIDEO-SCRIPT.md, target 2 to 3 minutes)
+Demo video: video/emmaus-care-demo.mp4 (1 minute 36 seconds, narrated, 1280x720, also in the GitHub repo under video/). If the form wants a hosted link, upload this file to YouTube as unlisted and paste the link. Script in docs/DEMO-VIDEO-SCRIPT.md.
 
 ## Award angles
 Best Ministry Impact: serves the most repeated, least supported task in small church life, and its follow-up plans fight the exact moment people slip through, the weeks after everyone else stops calling.
