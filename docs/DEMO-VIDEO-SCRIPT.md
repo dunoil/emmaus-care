@@ -1,0 +1,28 @@
+# Demo Video Script: Emmaus Care (target 2 minutes 30 seconds, max 5 minutes)
+
+Format: screen recording of the live demo with voiceover. No camera needed.
+
+## 0:00 to 0:20, The problem
+Visual: hero section of the app.
+Voice: "In a small church, one pastor carries every hospital visit, every grief call, and every homebound member. Often they drive straight from work, with no time to prepare. The visit happens, but it happens hurried. Emmaus Care exists to give that pastor ten quiet minutes of preparation."
+
+## 0:20 to 0:50, A hospital visit
+Visual: click the sample "Hospital, after surgery".
+Voice: "Meet Margaret, a sample member, in hospital after hip surgery. One click drafts her whole visit plan: the heart of the visit, how to open the conversation, and what to listen for. Notice that the plan picked up the surgery and her fear that God feels far away, straight from the notes."
+
+## 0:50 to 1:25, Scripture, prayer, and care
+Visual: scroll through Scripture, prayer, handle with care.
+Voice: "It offers three Scripture options, public domain translations, with a simple rule: read one slowly, only if the moment is right. It drafts a prayer with her name in it, ready to edit into your own words. And it names the mistakes to avoid, like promising a healing outcome."
+
+## 1:25 to 1:55, Follow-up, where trust is built
+Visual: follow-up plan and print view.
+Voice: "The part churches most often miss is follow-up. Emmaus Care schedules it before the visit: a message tomorrow, a family check in three days, help on discharge day, and a home visit in two weeks. One click prints it as a visit card to carry in a Bible or a jacket pocket."
+
+## 1:55 to 2:30, Responsible AI and close
+Visual: privacy badges, then the grief sample briefly.
+Voice: "Two design promises. First, privacy: everything runs on this device. Notes never leave it, and the app asks for a first name only. Second, the human stays in charge: every plan is a draft to review, it never diagnoses, and in a crisis it points to real help first. Six kinds of visits, one calm screen, and follow-up that does not fade. That is Emmaus Care: walk in prepared, listen first."
+
+## Recording notes
+- Record at 1280x720 or higher, browser zoom 100 percent.
+- Use the live GitHub Pages URL so judges see the real deployment.
+- Keep narration at a natural pace, about 140 to 160 words per minute. Total script is about 360 words.

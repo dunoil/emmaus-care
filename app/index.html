@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emmaus Care: Pastoral Visit Companion</title>
+<meta name="description" content="A calm AI companion that helps pastors and care teams prepare for pastoral visits in minutes.">
+<style>
+:root{
+  --bg:#f7f3ea; --surface:#fffdf7; --surface2:#f1e9d8; --ink:#22312a; --muted:#68766c;
+  --line:#e2d9c4; --accent:#2e5d43; --accent2:#b98a2f; --accent-soft:#e3eee4;
+  --danger:#9a3b2e; --radius:18px; --shadow:0 18px 50px rgba(46,70,52,.14);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--ink)}
+.sans{font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+header.hero{
+  background:radial-gradient(1000px 500px at 15% -10%, #3d7254 0%, transparent 60%),
+             linear-gradient(135deg,#234534 0%, #2e5d43 55%, #47785a 100%);
+  color:#f7f1de; padding:54px 22px 64px; position:relative; overflow:hidden;
+}
+header.hero:after{content:"";position:absolute;right:-70px;top:-70px;width:300px;height:300px;border-radius:50%;
+  border:44px solid rgba(247,241,222,.10)}
+.wrap{max-width:1120px;margin:0 auto;position:relative;z-index:1}
+.eyebrow{letter-spacing:.22em;text-transform:uppercase;font-size:12px;color:#e8cf8f;font-family:-apple-system,'Segoe UI',Roboto,sans-serif}
+h1{font-size:clamp(38px,6vw,62px);line-height:1.04;margin:14px 0 12px;font-weight:600}
+h1 em{color:#e8cf8f;font-style:italic}
+.hero p.lede{font-size:clamp(17px,2.4vw,21px);max-width:640px;line-height:1.55;color:#eef0e2;margin:0 0 22px}
+.hero .badges{display:flex;gap:10px;flex-wrap:wrap;font-family:-apple-system,'Segoe UI',Roboto,sans-serif}
+.badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);padding:7px 13px;border-radius:999px;font-size:13px}
+main{max-width:1120px;margin:-34px auto 0;padding:0 22px 60px;position:relative;z-index:2}
+.grid{display:grid;grid-template-columns:400px 1fr;gap:22px;align-items:start}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}
+.card h2{margin:0 0 4px;font-size:23px}
+.card .sub{color:var(--muted);font-size:14.5px;line-height:1.5;margin:0 0 18px;font-family:-apple-system,'Segoe UI',Roboto,sans-serif}
+label{display:block;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);
+  margin:16px 0 7px;font-family:-apple-system,'Segoe UI',Roboto,sans-serif}
+label:first-of-type{margin-top:0}
+input[type=text],textarea,select{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:12px;
+  background:#fff;font-size:15.5px;color:var(--ink);font-family:-apple-system,'Segoe UI',Roboto,sans-serif}
+textarea{resize:vertical;min-height:92px;line-height:1.5}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--accent2);outline-offset:1px;border-color:transparent}
+.types{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.type-btn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px 10px;cursor:pointer;text-align:left;
+  font-family:-apple-system,'Segoe UI',Roboto,sans-serif;font-size:14px;color:var(--ink);transition:all .15s}
+.type-btn small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.type-btn.active{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;border-radius:12px;
+  padding:14px 20px;font-size:16px;font-weight:600;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;transition:transform .12s, box-shadow .12s}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--accent);color:#fdfbef;width:100%;justify-content:center;margin-top:20px;box-shadow:0 10px 24px rgba(46,93,67,.35)}
+.btn-primary:hover{background:#26503a}
+.btn-ghost{background:transparent;border:1px solid var(--line);color:var(--accent);padding:10px 15px;font-size:14px}
+.btn-ghost:hover{background:var(--surface2)}
+.samples{margin-top:16px;border-top:1px dashed var(--line);padding-top:14px}
+.samples p{margin:0 0 9px;font-size:13px;color:var(--muted);font-family:-apple-system,'Segoe UI',Roboto,sans-serif}
+.chip{border:1px solid var(--line);background:var(--surface2);border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer;
+  margin:0 6px 6px 0;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--ink)}
+.chip:hover{border-color:var(--accent2)}
+.notice{margin-top:16px;background:#fdf6e0;border:1px solid #eadfae;border-radius:12px;padding:12px 14px;font-size:13.5px;line-height:1.55;color:#5c5322;font-family:-apple-system,'Segoe UI',Roboto,sans-serif}
+.plan-empty{text-align:center;padding:54px 26px;color:var(--muted)}
+.plan-empty .mark{font-size:44px;color:var(--accent2)}
+.plan-empty h3{color:var(--ink);font-size:22px;margin:10px 0 6px}
+.plan-head{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:flex-start;border-bottom:2px solid var(--surface2);padding-bottom:16px;margin-bottom:6px}
+.plan-head h2{font-size:27px}
+.plan-head .meta{color:var(--muted);font-size:14px;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;margin-top:4px}
+section.block{padding:16px 0 4px;border-bottom:1px dashed var(--line)}
+section.block:last-of-type{border-bottom:none}
+section.block h3{font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2);margin:0 0 10px;font-family:-apple-system,'Segoe UI',Roboto,sans-serif}
+section.block p, section.block li{font-size:16.5px;line-height:1.62}
+section.block ul{margin:6px 0 10px;padding-left:20px}
+section.block li{margin-bottom:6px}
+.scripture{background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:13px 16px;margin:0 0 10px}
+.scripture .ref{font-weight:700;color:var(--accent);font-size:14px;letter-spacing:.03em;font-family:-apple-system,'Segoe UI',Roboto,sans-serif}
+.scripture .txt{font-style:italic;margin-top:3px}
+.prayer{background:#fdf6e0;border:1px solid #eadfae;border-radius:12px;padding:15px 17px;font-style:italic;line-height:1.65;font-size:16.5px}
+.timeline{display:grid;gap:9px;margin:6px 0 10px}
+.tl{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 13px}
+.tl .when{flex:0 0 96px;font-weight:700;color:var(--accent);font-size:13.5px;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;padding-top:2px}
+.tl .what{font-size:15.5px;line-height:1.5;font-family:-apple-system,'Segoe UI',Roboto,sans-serif}
+.avoid li{color:#6d3a32}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.saved{margin-top:22px}
+.saved h3{font-size:18px;margin:0 0 10px}
+.saved-item{display:flex;justify-content:space-between;gap:10px;align-items:center;border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px 14px;margin-bottom:8px;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;font-size:14.5px}
+.saved-item button{border:none;background:none;color:var(--accent);font-weight:600;cursor:pointer;font-size:14px}
+footer{max-width:1120px;margin:0 auto;padding:0 22px 46px;color:var(--muted);font-size:14px;line-height:1.6;font-family:-apple-system,'Segoe UI',Roboto,sans-serif}
+footer strong{color:var(--ink)}
+@media print{
+  header.hero,.form-card,.actions,.saved,footer .no-print{display:none !important}
+  body{background:#fff} main{margin:0;padding:0}
+  .grid{grid-template-columns:1fr}
+  .card{box-shadow:none;border:none}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Emmaus Care</div>
+    <h1>Walk in prepared.<br><em>Listen first.</em></h1>
+    <p class="lede">A calm AI companion that helps pastors and care teams prepare for a pastoral visit in minutes: a clear brief, gentle conversation prompts, Scripture and prayer options, and a follow-up plan a person always approves.</p>
+    <div class="badges">
+      <span class="badge">Private by design: notes never leave this device</span>
+      <span class="badge">Human in the loop, always</span>
+      <span class="badge">Printable one page visit card</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="grid">
+    <div class="card form-card">
+      <h2>Prepare a visit</h2>
+      <p class="sub">Use a first name only, and only the details you need. Everything is processed locally in your browser.</p>
+
+      <label>Kind of visit</label>
+      <div class="types" id="types"></div>
+
+      <label for="pname">First name of the person</label>
+      <input type="text" id="pname" placeholder="For example: Margaret" maxlength="40">
+
+      <label for="visitor">Who is visiting</label>
+      <select id="visitor">
+        <option>Pastor</option>
+        <option>Elder or deacon</option>
+        <option>Care team volunteer</option>
+        <option>Small group leader</option>
+      </select>
+
+      <label for="length">Planned length</label>
+      <select id="length">
+        <option>About 20 minutes</option>
+        <option selected>About 40 minutes</option>
+        <option>About an hour</option>
+        <option>A short doorstep visit</option>
+      </select>
+
+      <label for="notes">What you know, in a few lines</label>
+      <textarea id="notes" placeholder="For example: Second week in hospital after surgery. Daughter visits on weekends. She has been asking why God feels far away."></textarea>
+
+      <button class="btn btn-primary" id="generate">Prepare my visit plan</button>
+
+      <div class="samples">
+        <p>Try a sample visit:</p>
+        <button class="chip" data-sample="hospital">Hospital, after surgery</button>
+        <button class="chip" data-sample="grief">Grief, lost a spouse</button>
+        <button class="chip" data-sample="homebound">Homebound and lonely</button>
+      </div>
+
+      <div class="notice"><strong>Responsible use:</strong> Emmaus Care drafts, you decide. It never diagnoses, never replaces pastoral judgment, and its Scripture suggestions should be read in context before you share them. If someone may be in danger, contact local emergency help first, then visit.</div>
+    </div>
+
+    <div>
+      <div class="card" id="planCard">
+        <div class="plan-empty" id="planEmpty">
+          <div class="mark">&#10013;</div>
+          <h3>Your visit plan will appear here</h3>
+          <p class="sans" style="font-size:15px;line-height:1.6">Choose a kind of visit, add a first name and a few honest lines about the situation, and Emmaus Care will draft a brief you can review, edit, print, and carry with you.</p>
+        </div>
+        <div id="planOut" hidden></div>
+      </div>
+
+      <div class="card saved" id="savedCard" hidden>
+        <h3>Saved on this device</h3>
+        <div id="savedList"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p><strong>Why Emmaus Care exists.</strong> In many small churches, one pastor carries every hospital visit, every grief call, and every homebound member, often driving straight from work with no time to prepare. Emmaus Care gives that pastor ten quiet minutes of preparation, so the person being visited gets presence instead of hurry.</p>
+  <p class="no-print">Named for the road to Emmaus, where a stranger became a companion who listened first and spoke second (Luke 24). Scripture quotations are short excerpts from the public domain King James Version and World English Bible. Built for the AI for Church Hackathon 2026.</p>
+</footer>
+
+<script>
+const TYPES = {
+  hospital: {
+    label: "Hospital", small: "Illness or surgery",
+    focus: "Be a calm, unhurried presence in a place that feels clinical and out of control. Your job is mostly to listen, to pray briefly, and to make sure the person knows the church has not forgotten them.",
+    openers: [
+      "How is today treating you, honestly?",
+      "What has been the hardest part of being here?",
+      "Who has been looking after you, and who is looking after them?"
+    ],
+    listenFor: ["Fear about the diagnosis or the next procedure", "Worry about family coping at home", "Feeling like a burden", "Questions about why God feels distant"],
+    avoid: ["Do not offer medical opinions or interpret test results", "Do not promise a specific healing outcome", "Do not fill every silence; short visits with real attention beat long ones"],
+    scriptures: [
+      {ref:"Psalm 41:3 (WEB)", txt:"The Lord will sustain him on his sickbed, and restore him from his bed of illness."},
+      {ref:"Isaiah 41:10 (KJV)", txt:"Fear thou not; for I am with thee: be not dismayed; for I am thy God: I will strengthen thee; yea, I will help thee."},
+      {ref:"John 14:27 (KJV)", txt:"Peace I leave with you, my peace I give unto you. Let not your heart be troubled, neither let it be afraid."}
+    ],
+    prayer: "Lord, we bring {name} to you in this hospital room. You know the fear and the waiting better than we can say. Give the doctors wisdom, give {name} rest tonight, and let your nearness be felt more strongly than the machines around this bed. Hold the family at home in the same care. In Jesus name, Amen.",
+    follow: [
+      ["Tomorrow", "Send a short text or card: one line, no reply needed. Mention one specific thing you prayed for."],
+      ["In 3 days", "Check with the family contact, not the patient, how recovery is going and whether meals or rides would help."],
+      ["On discharge", "Coordinate one practical act: a meal rota, a ride home, or help with the first night back."],
+      ["In 2 weeks", "Visit at home. Ask what the hospital stay changed in how they see things."]
+    ],
+    practical: "Bring nothing bulky. Ask the nurse station about visiting limits before you enter, and keep the visit shorter than planned if the person tires."
+  },
+  grief: {
+    label: "Grief", small: "After a loss",
+    focus: "Grief does not need fixing. Your presence, your willingness to say the loved one's name, and your patience with tears or silence will matter more than any explanation you could offer.",
+    openers: [
+      "Tell me about them. What do you miss most today?",
+      "What has this week actually looked like, day to day?",
+      "What do people keep saying that does not help, and what has helped?"
+    ],
+    listenFor: ["Guilt about things said or unsaid", "Anger at God, expressed or hidden", "Practical overwhelm: paperwork, money, an empty house", "Isolation as other people drift back to normal life"],
+    avoid: ["Do not say the loss was God's plan or that God needed another angel", "Do not rush them toward closure or a timeline", "Do not compare their grief with anyone else's"],
+    scriptures: [
+      {ref:"Psalm 34:18 (KJV)", txt:"The Lord is nigh unto them that are of a broken heart."},
+      {ref:"Matthew 5:4 (KJV)", txt:"Blessed are they that mourn: for they shall be comforted."},
+      {ref:"Revelation 21:4 (KJV)", txt:"And God shall wipe away all tears from their eyes; and there shall be no more death, neither sorrow, nor crying."}
+    ],
+    prayer: "Father, we sit with {name} in a grief that words cannot carry. Thank you for the life that was loved and is missed so deeply. Be near in the empty rooms and the hard hours of the night. Give {name} strength for one day at a time, and surround them with people who will stay. In Jesus name, Amen.",
+    follow: [
+      ["This week", "Drop off one meal or one practical help, without expecting conversation."],
+      ["In 2 weeks", "Call and use the loved one's name. Ask how the quiet hours are going."],
+      ["At 6 weeks", "This is when support usually fades. Visit again and ask what would help now."],
+      ["At milestones", "Note the birthday and the anniversary of the loss in the church care calendar, and reach out on both."]
+    ],
+    practical: "Let them set the length of the visit. Tears are not a problem to solve; have tissues within reach and do not hand them over too quickly."
+  },
+  homebound: {
+    label: "Homebound", small: "Older or housebound",
+    focus: "For someone who rarely leaves home, your visit may be the week's main event. Unhurried conversation, news of church life, and being treated as a person with a story, not a task, are the gifts here.",
+    openers: [
+      "What has been filling your days lately?",
+      "Tell me about a time in your life you think about often.",
+      "Who do you hear from these days, and who do you miss?"
+    ],
+    listenFor: ["Loneliness and feeling forgotten by the church", "Quiet worries about money, health, or the house", "A rich history and wisdom they still want to share", "Hunger to still contribute something"],
+    avoid: ["Do not talk about them to others in the room as if they are not there", "Do not only bring church problems or requests", "Do not rush off; a promised short visit that ends early can sting"],
+    scriptures: [
+      {ref:"Psalm 71:9 (KJV)", txt:"Cast me not off in the time of old age; forsake me not when my strength faileth."},
+      {ref:"Isaiah 46:4 (WEB)", txt:"Even to old age I am he, and even to gray hairs I will carry you."},
+      {ref:"Psalm 92:14 (KJV)", txt:"They shall still bring forth fruit in old age."}
+    ],
+    prayer: "Lord, thank you for {name} and for the years of faithfulness written into this life. Remind {name} today that they are known, carried, and not forgotten, by you and by your church. Give strength for each day and joy in small mercies. In Jesus name, Amen.",
+    follow: [
+      ["This week", "Send the sermon recording or bulletin with a handwritten note naming one thing you enjoyed hearing."],
+      ["Every 2 weeks", "Put a recurring visit or phone call in the calendar, and keep it like an appointment that matters."],
+      ["Monthly", "Ask whether a small role from home would give joy: praying for a list, writing birthday cards, knitting for the food bank."],
+      ["Seasonally", "Arrange communion at home and a ride to one special service, with help booked early."]
+    ],
+    practical: "Sit at eye level, speak clearly, and ask about hearing aids or glasses before reading Scripture aloud."
+  },
+  newbaby: {
+    label: "New baby", small: "Joy and exhaustion",
+    focus: "Celebrate loudly and help quietly. New parents need sleep, food, and the feeling that their church family sees both the wonder and the exhaustion of these first weeks.",
+    openers: [
+      "How are you sleeping, really?",
+      "What has surprised you most so far?",
+      "What would actually help this week, if pride were not in the way?"
+    ],
+    listenFor: ["Exhaustion and feeling overwhelmed", "Feeding worries or a difficult birth story that needs telling", "Older siblings adjusting", "Signs of low mood that linger beyond the early days"],
+    avoid: ["Do not stay long, and do not expect to hold the baby", "Do not offer parenting corrections in the first visit", "Do not visit with any cold or illness symptoms, ever"],
+    scriptures: [
+      {ref:"Psalm 127:3 (KJV)", txt:"Lo, children are an heritage of the Lord: and the fruit of the womb is his reward."},
+      {ref:"Isaiah 40:11 (KJV)", txt:"He shall gently lead those that are with young."},
+      {ref:"Psalm 139:13 (WEB)", txt:"For you formed my inmost being. You knit me together in my mother's womb."}
+    ],
+    prayer: "Father, thank you for this new life and for carrying this family to today. Give {name} deep rest in short hours, patience in the night feeds, and a village around them that shows up with food and kindness. Bless this child with health and a home full of your peace. In Jesus name, Amen.",
+    follow: [
+      ["This week", "Deliver a meal with no visit attached. Text when it is at the door."],
+      ["In 2 weeks", "Check on the mother's recovery and mood directly, not only on the baby."],
+      ["At 6 weeks", "Offer two concrete hours of help: holding the baby while a parent showers and sleeps."],
+      ["At dedication", "Help the family plan the dedication or baptism day, including seats for extended family."]
+    ],
+    practical: "Wash your hands on arrival without being asked, keep the visit under the planned length, and take a photo only if the parents offer."
+  },
+  anxious: {
+    label: "Anxiety or crisis", small: "Overwhelmed",
+    focus: "Slow everything down, including your own voice. A person in crisis needs to feel heard and safe before they can hear anything else. Your calm is the message.",
+    openers: [
+      "I am glad you told someone. How heavy does today feel?",
+      "What is the loudest worry in your head right now?",
+      "What has helped, even a little, on days like this before?"
+    ],
+    listenFor: ["Sleep loss and racing thoughts", "A specific trigger: work, money, a relationship", "Withdrawal from people and from church", "Any mention of harming themselves: take it seriously, stay, and help them reach professional or emergency help"],
+    avoid: ["Do not say just pray more or just trust God as a complete answer", "Do not share their situation with others without permission", "Do not try to be their therapist; be their pastor and help them find support"],
+    scriptures: [
+      {ref:"Philippians 4:6-7 (KJV)", txt:"Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God. And the peace of God shall keep your hearts and minds through Christ Jesus."},
+      {ref:"1 Peter 5:7 (KJV)", txt:"Casting all your care upon him; for he careth for you."},
+      {ref:"Psalm 56:3 (KJV)", txt:"What time I am afraid, I will trust in thee."}
+    ],
+    prayer: "Lord, you see the weight {name} is carrying and the thoughts that will not quiet down. Meet them in it. Give rest tonight, clear next steps tomorrow, and people who will walk at their pace. Your care is bigger than this storm, and we lean on that together. In Jesus name, Amen.",
+    follow: [
+      ["Tomorrow", "One short message: you were thought of and prayed for by name today."],
+      ["In 3 days", "Ask directly how sleep and appetite are, and whether professional support has been considered. Offer to help book it."],
+      ["Weekly for a month", "Brief, predictable contact at the same time each week. Predictability itself is care."],
+      ["At one month", "Review together: what helped, what is still heavy, and who else should be in the circle of support, with permission."]
+    ],
+    practical: "If there is any risk of self harm, do not leave the person alone with the thought. Stay, listen, and connect them with local emergency services or a crisis line before you leave."
+  },
+  returning: {
+    label: "Finding their way back", small: "Drifting or returning",
+    focus: "Shame keeps people away longer than doubt does. This visit succeeds if the person leaves it feeling wanted, not examined. Curiosity about their life comes first; church talk can wait.",
+    openers: [
+      "It is genuinely good to see you. How has life been?",
+      "What has this season away been like for you?",
+      "No agenda from me. I just wanted you to know you are missed."
+    ],
+    listenFor: ["A hurt connected to church or a person in it", "Life changes: work shifts, moving, family strain", "Quiet spiritual hunger under the surface", "Fear of being judged if they walk back in"],
+    avoid: ["Do not open with attendance, giving, or serving gaps", "Do not debate theology in a first visit", "Do not report back on them to others beyond what they allow"],
+    scriptures: [
+      {ref:"Luke 15:20 (KJV)", txt:"But when he was yet a great way off, his father saw him, and had compassion, and ran, and fell on his neck, and kissed him."},
+      {ref:"Romans 8:1 (KJV)", txt:"There is therefore now no condemnation to them which are in Christ Jesus."},
+      {ref:"Hebrews 10:25 (WEB)", txt:"Not forsaking our own assembling together, as the custom of some is, but exhorting one another."}
+    ],
+    prayer: "Father, thank you that you never stopped loving {name}, not for one day of this season. Where there is hurt, bring healing; where there is distance, bring your nearness. Give {name} courage for whatever the next small step is, and give us grace to walk it with them. In Jesus name, Amen.",
+    follow: [
+      ["This week", "Send one warm message with zero asks in it."],
+      ["In 2 weeks", "Invite to something low pressure and social before a Sunday service: coffee, a meal, a working bee."],
+      ["When they visit", "Sit with them, introduce two kind people by name, and save them from standing alone afterwards."],
+      ["At 2 months", "Ask how it feels to be back, and listen for the hurt that may still need a conversation."]
+    ],
+    practical: "Meet on neutral ground if home feels loaded: a cafe or a walk. Keep every promise you make in this visit, however small."
+  }
+};
+
+const KEYWORD_BOOSTS = [
+  {keys:["surgery","operation","operat"], add:"The notes mention surgery. Ask how recovery and pain are today, and whether the surgeon has given a clear next step.", prac:"Coordinate rides to follow-up appointments before you leave."},
+  {keys:["cancer","chemo","tumor","tumour"], add:"The notes mention cancer treatment. Expect good days and wiped out days; let them set the energy of the visit.", prac:"Ask the family what help is useful on treatment days specifically."},
+  {keys:["husband died","wife died","lost her husband","lost his wife","widow"], add:"The loss is a spouse. The house, the bed, and the evenings will feel different; ask about nights specifically.", prac:"Evening check-in calls often matter more than daytime visits for a new widow or widower."},
+  {keys:["mother died","father died","lost her mother","lost his father","parent died"], add:"The loss is a parent. Adult children often grieve while handling estates and siblings; ask about both.", prac:"Offer help with one concrete task: calls, forms, or clearing a room, at their pace."},
+  {keys:["lonely","alone","no visitors","isolated"], add:"Loneliness is named in the notes. Treat unhurried time itself as the ministry, and leave a reason to look forward to the next contact.", prac:"Leave something behind: a note, a photo from church, or the next visit date in writing."},
+  {keys:["job","work","redundan","fired","unemployed"], add:"Work trouble is part of the picture. Protect dignity: ask about the person before the job hunt.", prac:"Offer one real connection or reference, not general advice about jobs."},
+  {keys:["baby","newborn","gave birth","pregnan"], add:"A baby is part of this story. Keep voices low, visits short, and hands washed.", prac:"Food and sleep help beat advice. Bring a meal, not opinions."},
+  {keys:["anxious","anxiety","panic","depress","cannot sleep","can't sleep"], add:"Anxiety or low mood is named. Keep your voice slow, avoid fixing, and ask what has helped before.", prac:"Agree on the exact day of the next contact before you leave, and keep it."},
+  {keys:["money","debt","rent","bills","evict"], add:"Money pressure is present. Listen without shock, and know your church benevolence process before you promise anything.", prac:"Connect them with the benevolence contact within 48 hours, with their permission."}
+];
+
+let currentType = "hospital";
+let lastPlan = null;
+
+const typesEl = document.getElementById("types");
+Object.entries(TYPES).forEach(([key, t]) => {
+  const b = document.createElement("button");
+  b.className = "type-btn" + (key === currentType ? " active" : "");
+  b.dataset.type = key;
+  b.innerHTML = t.label + "<small>" + t.small + "</small>";
+  b.onclick = () => { currentType = key; document.querySelectorAll(".type-btn").forEach(x => x.classList.toggle("active", x.dataset.type === key)); };
+  typesEl.appendChild(b);
+});
+
+const SAMPLES = {
+  hospital: {type:"hospital", name:"Margaret", notes:"Second week in hospital after hip surgery. Her daughter visits on weekends. She keeps asking why God feels far away, and she is worried about coping at home alone."},
+  grief: {type:"grief", name:"Daniel", notes:"His wife died three weeks ago after a long illness. The funeral is done and visitors have stopped. He is not sleeping well and the house feels very quiet."},
+  homebound: {type:"homebound", name:"Ruth", notes:"Ruth is 86 and has not left home in months. She was a Sunday school teacher for 30 years. She says she feels forgotten and she is often lonely."}
+};
+document.querySelectorAll("[data-sample]").forEach(btn => {
+  btn.onclick = () => {
+    const s = SAMPLES[btn.dataset.sample];
+    currentType = s.type;
+    document.querySelectorAll(".type-btn").forEach(x => x.classList.toggle("active", x.dataset.type === s.type));
+    document.getElementById("pname").value = s.name;
+    document.getElementById("notes").value = s.notes;
+    generate();
+  };
+});
+
+function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+function generate(){
+  const t = TYPES[currentType];
+  const nameRaw = document.getElementById("pname").value.trim();
+  const name = nameRaw ? esc(nameRaw.split(" ")[0]) : "your visit";
+  const displayName = nameRaw ? esc(nameRaw.split(" ")[0]) : "This person";
+  const visitor = document.getElementById("visitor").value;
+  const length = document.getElementById("length").value;
+  const notes = document.getElementById("notes").value.trim();
+  const notesLow = " " + notes.toLowerCase() + " ";
+
+  const boosts = KEYWORD_BOOSTS.filter(b => b.keys.some(k => notesLow.includes(k)));
+  const listen = t.listenFor.slice();
+  boosts.forEach(b => listen.unshift(b.add));
+  const practical = [t.practical].concat(boosts.map(b => b.prac)).filter((v,i,a) => a.indexOf(v) === i);
+
+  const plan = {type: currentType, name: displayName, visitor, length, notes, when: new Date().toLocaleDateString(undefined,{weekday:"long", year:"numeric", month:"long", day:"numeric"})};
+  lastPlan = plan;
+
+  const li = arr => arr.map(x => "<li>" + esc(x) + "</li>").join("");
+  const html =
+    '<div class="plan-head"><div><h2>Visit plan for ' + displayName + '</h2>' +
+    '<div class="meta">' + t.label + " visit &middot; " + esc(visitor) + " &middot; " + esc(length) + " &middot; Prepared " + plan.when + '</div></div>' +
+    '<span class="badge" style="background:var(--accent-soft);color:var(--accent);border:1px solid var(--line)">Draft: review before you go</span></div>' +
+
+    '<section class="block"><h3>The heart of this visit</h3><p>' + esc(t.focus) + '</p>' +
+    (notes ? '<p style="color:var(--muted);font-size:15px" class="sans">Based on your notes: &ldquo;' + esc(notes) + '&rdquo;</p>' : '') + '</section>' +
+
+    '<section class="block"><h3>Conversation openers</h3><ul>' + li(t.openers) + '</ul></section>' +
+
+    '<section class="block"><h3>Listen for</h3><ul>' + li(listen.slice(0,6)) + '</ul></section>' +
+
+    '<section class="block"><h3>Scripture to have ready</h3>' +
+    t.scriptures.map(s => '<div class="scripture"><div class="ref">' + esc(s.ref) + '</div><div class="txt">&ldquo;' + esc(s.txt) + '&rdquo;</div></div>').join("") +
+    '<p class="sans" style="font-size:13.5px;color:var(--muted)">Read one passage slowly, only if the moment is right. One verse received is worth five quoted.</p></section>' +
+
+    '<section class="block"><h3>A prayer you can pray aloud</h3><div class="prayer">' + esc(t.prayer.replaceAll("{name}", displayName)) + '</div>' +
+    '<p class="sans" style="font-size:13.5px;color:var(--muted)">Edit this in your own words before you go. Short and honest beats long and polished.</p></section>' +
+
+    '<section class="block"><h3>Handle with care</h3><ul class="avoid">' + li(t.avoid) + '</ul></section>' +
+
+    '<section class="block"><h3>Practical notes</h3><ul>' + li(practical) + '</ul></section>' +
+
+    '<section class="block"><h3>Follow-up plan</h3><div class="timeline">' +
+    t.follow.map(f => '<div class="tl"><div class="when">' + esc(f[0]) + '</div><div class="what">' + esc(f[1]) + '</div></div>').join("") +
+    '</div><p class="sans" style="font-size:13.5px;color:var(--muted)">Add these to the care calendar before the visit, not after. Follow-up is where trust is built.</p></section>' +
+
+    '<div class="actions">' +
+    '<button class="btn btn-ghost" onclick="window.print()">Print visit card</button>' +
+    '<button class="btn btn-ghost" id="copyBtn">Copy plan as text</button>' +
+    '<button class="btn btn-ghost" id="saveBtn">Save on this device</button>' +
+    '</div>';
+
+  const out = document.getElementById("planOut");
+  out.innerHTML = html;
+  out.hidden = false;
+  document.getElementById("planEmpty").hidden = true;
+  document.getElementById("planCard").scrollIntoView({behavior:"smooth", block:"start"});
+
+  document.getElementById("copyBtn").onclick = () => {
+    const text = out.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      document.getElementById("copyBtn").textContent = "Copied";
+      setTimeout(() => document.getElementById("copyBtn").textContent = "Copy plan as text", 1600);
+    });
+  };
+  document.getElementById("saveBtn").onclick = () => { savePlan(plan); };
+}
+
+function savePlan(plan){
+  const key = "emmaus-care-plans";
+  const all = JSON.parse(localStorage.getItem(key) || "[]");
+  all.unshift(plan);
+  localStorage.setItem(key, JSON.stringify(all.slice(0, 20)));
+  renderSaved();
+}
+function renderSaved(){
+  const key = "emmaus-care-plans";
+  const all = JSON.parse(localStorage.getItem(key) || "[]");
+  const card = document.getElementById("savedCard");
+  if(!all.length){ card.hidden = true; return; }
+  card.hidden = false;
+  document.getElementById("savedList").innerHTML = all.map((p,i) =>
+    '<div class="saved-item"><span><strong>' + esc(p.name) + '</strong> &middot; ' + esc(TYPES[p.type].label) + ' &middot; ' + esc(p.when) + '</span>' +
+    '<span><button data-load="' + i + '">Open</button> <button data-del="' + i + '">Delete</button></span></div>').join("");
+  document.querySelectorAll("[data-load]").forEach(b => b.onclick = () => {
+    const p = all[Number(b.dataset.load)];
+    currentType = p.type;
+    document.querySelectorAll(".type-btn").forEach(x => x.classList.toggle("active", x.dataset.type === p.type));
+    document.getElementById("pname").value = p.name === "This person" ? "" : p.name;
+    document.getElementById("notes").value = p.notes || "";
+    generate();
+  });
+  document.querySelectorAll("[data-del]").forEach(b => b.onclick = () => {
+    all.splice(Number(b.dataset.del), 1);
+    localStorage.setItem(key, JSON.stringify(all));
+    renderSaved();
+  });
+}
+document.getElementById("generate").onclick = generate;
+renderSaved();
+</script>
+</body>
+</html>
